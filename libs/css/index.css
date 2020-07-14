@@ -63,7 +63,7 @@ body::before {
 .top {
     width: 100%;
     height: 100px;
-    background-color: rgba(0, 164, 255, 0.7);
+    background-color: rgba(0, 0, 0, 0.5);
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
 }
