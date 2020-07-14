@@ -1,0 +1,184 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'KaiTi';
+    box-sizing: border-box;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    position: relative;
+    height: 1000px;
+    background: url(../img/bg.jpg) no-repeat center/cover;
+}
+
+body::before {
+    content: '';
+    width: 100%;
+    height: 1000px;
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.container {
+    position: absolute;
+    width: 1200px;
+    height: 800px;
+    background-color: rgba(255, 255, 255, 0.3);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 25px;
+}
+
+.top {
+    width: 100%;
+    height: 100px;
+    background-color: rgba(0, 164, 255, 0.7);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.top h1 {
+    float: left;
+    width: 200px;
+    height: 100px;
+    line-height: 100px;
+    text-indent: 1em;
+    color: #fff;
+}
+
+.top .search {
+    float: right;
+    width: 400px;
+    height: 60px;
+    margin: 20px 20px 0 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    color: #000;
+    font-size: 20px;
+    text-indent: 1em;
+}
+
+.middle {
+    width: 100%;
+    height: 600px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.middle .music_name {
+    float: left;
+    width: 30%;
+    height: 600px;
+    background: url(../img/line.png) no-repeat 350px;
+}
+
+.music_name ul {
+    width: 96%;
+    height: 100%;
+    overflow: auto;
+}
+
+.music_name ul::-webkit-scrollbar {
+    width: 10px;
+}
+
+.music_name ul::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.music_name ul::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.music_text {
+    position: relative;
+    float: right;
+    width: 70%;
+    height: 100%;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.music_text::-webkit-scrollbar {
+    width: 10px;
+}
+
+.music_text::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.music_text::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.music_text .warp {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    text-align: center;
+}
+
+.music_text .warp h2 {
+    width: 100%;
+    height: 50px;
+    font-size: 35px;
+    line-height: 50px;
+}
+
+.music_text .warp p {
+    width: 100%;
+    height: 50px;
+    font-size: 26px;
+    line-height: 50px;
+}
+
+.music_name ul li {
+    width: 100%;
+    height: 40px;
+    font-size: 20px;
+    line-height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 5px;
+    cursor: pointer;
+    text-indent: 2em;
+}
+
+.music_name ul li:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.bottom {
+    width: 100%;
+    height: 100px;
+    background-color: #f1f3f4;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.bottom audio {
+    width: 100%;
+    height: 80%;
+    outline: none;
+}
