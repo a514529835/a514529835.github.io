@@ -12,25 +12,32 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="top">
-            <h1>Mymusic</h1>
-            <input type="search" class="search" placeholder="请输入音乐后按回车查询">
-        </div>
-        <div class="middle">
-            <div class="music_name">
-                <ul>
-                    <li>Welcome to Mymusic</li>
-                </ul>
+    <div class="img">
+        <img src="./libs/img/loading.gif" alt="">
+    </div>
+    <div class="border">
+        <div class="container">
+            <div class="top">
+                <h1>
+                    <img src="./libs/img/mty.gif" alt="">
+                    胖虎的音乐台</h1>
+                <input type="search" class="search" placeholder="请输入音乐后按回车查询">
             </div>
-            <div class="music_text">
-                <div class="warp">
-                    <h2>Welcome to Mymusic</h2>
+            <div class="middle">
+                <div class="music_name">
+                    <ul>
+                        <li>Welcome to Mymusic</li>
+                    </ul>
+                </div>
+                <div class="music_text">
+                    <div class="warp">
+                        <h2>Welcome to Mymusic</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="bottom">
-            <audio controls src="" id="play"></audio>
+            <div class="bottom">
+                <audio controls src="" id="play"></audio>
+            </div>
         </div>
     </div>
     <script id="musicName" type="text/html">
@@ -44,6 +51,7 @@
         <p> {{ v }}</p>
         {{ /each }}
     </script>
+
 </body>
 
 </html>
