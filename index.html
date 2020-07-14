@@ -5,12 +5,196 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            perspective: 1000px;
+        }
+
+        .warp {
+            position: relative;
+            width: 300px;
+            height: 375px;
+            margin: 100px auto;
+            transform-style: preserve-3d;
+        }
+
+        .warp>div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 375px;
+            background-size: cover;
+        }
+
+        .box1 {
+            background: url(./images/1.png) no-repeat;
+            transform: translateZ(300px);
+        }
+
+        .box2 {
+            background: url(./images/2.png) no-repeat;
+            transform: rotateY(60deg) translateZ(300px);
+        }
+
+        .box3 {
+            background: url(./images/3.png) no-repeat;
+            transform: rotateY(120deg) translateZ(300px);
+        }
+
+        .box4 {
+            background: url(./images/4.png) no-repeat;
+            transform: rotateY(180deg) translateZ(300px);
+        }
+
+        .box5 {
+            background: url(./images/5.png) no-repeat;
+            transform: rotateY(240deg) translateZ(300px);
+        }
+
+        .box6 {
+            background: url(./images/6.png) no-repeat;
+            transform: rotateY(300deg) translateZ(300px);
+        }
+
+        .movephoto {
+            width: 200px;
+            height: 50px;
+            margin: auto;
+        }
+    </style>
 </head>
 
 <body>
-    <div>我的主页</div>
-    <p>就这？</p>
+    <div class="warp" style="transform: rotateY(0deg);">
+        <div class="box1"></div>
+        <div class="box2"></div>
+        <div class="box3"></div>
+        <div class="box4"></div>
+        <div class="box5"></div>
+        <div class="box6"></div>
+    </div>
+    <div class="movephoto">
+        <button id="left">左边一张</button>
+        <button id="right">右边一张</button>
+        <button id="stop">停止转动</button>
+        <button id="begin"">开始转动</button>
+    </div>
 
+
+
+    <script>
+        //1.获取元素
+        var warp = document.querySelector('.warp');
+        var btnLeft = document.querySelector('#left');
+        var btnRight = document.querySelector('#right');
+        //2.注册事件
+
+        // 设置一个变量判断转动的方向
+        var toWhere=null;
+
+        //自动旋转
+        var timeID=setInterval(function(){
+            btnRight.onclick();
+        },1000) ;
+
+        // 点击左边的按钮
+        var index = 0;
+        btnLeft.onclick = function () {
+            // 根据上一次的转动方向来判断index应该如何变化
+            if(toWhere=='goright'){
+                index++;
+            };
+            // 解决点左边或者右边时点停止，再点左右时连跳的bug
+                if(warp.style.transform=='rotateY('+index*60+'deg)'){
+                index++;
+            };
+            //3.开始转动
+            animationDeg(warp, 60 * index);
+        };
+
+        // 点击右边的按钮
+        btnRight.onclick = function () {
+            // 根据上一次的转动方向来判断index应该如何变化
+            if(toWhere=='goleft'){
+                index--;
+            };
+            // 解决点左边或者右边时点停止，再点左右时连跳的bug
+            if(warp.style.transform=='rotateY('+index*60+'deg)'){
+                index--;
+            };
+            // 开始转动
+            animationDeg(warp, 60 * index);
+        };
+
+        // 点击停止按钮
+        document.querySelector('#stop').onclick=function(){
+            /**清除定时器
+            (1) 会清除缓动动画里面的定时器，
+            1.问题所在，此时画面会静止，不会转动，而普通的轮播图不会，因为不会让用户看到两张图片一边一半；
+            2.解决问题
+            2.1因为防止连跳的BUG所以，会再转到指定位置之后index再自增或自减-
+            2.2如何判断用户点的是下一张还是上一张来判断index应该怎么变化。
+            3解决思路
+            3.1：设置一个全局变量来记录转动的方向。
+            3.2：根据缓动动画里面的step的正负来判断旋转的方向，同时给变量赋值，当一次缓动完成后变量的值回归正常。
+            3.3：点击前先优先判断旋转是否完成，如果记录的旋转方向没有回归正常，则主动的帮他把上一次旋转时index的值给改过来。
+
+            (2)清除自动旋转的定时器
+            */
+            clearInterval(warp.timeID);
+            clearInterval(timeID);
+        };
+
+        // 点击开始按钮
+        document.querySelector('#begin').onclick=function(){
+            // 避免越来越快，先清除前面的定时器再开启
+            clearInterval(timeID);
+            // 再次开启定时器
+            timeID=setInterval(function(){
+                btnRight.onclick();
+            },1000);
+        }
+
+
+        /**
+         * @description:缓动动画
+         * @param {type} ele 要运动的元素
+         * @param {type} target 要运动的角度
+         * @param {type} fn 传递的函数（主要用于解决转动bug）
+         * @return: 
+         */
+        function animationDeg(ele, target) {
+            // 清除定时器
+            clearInterval(ele.timeID)
+            // 开启定时器
+            ele.timeID = setInterval(function () {
+                // 获取当前角度
+                var current3 = ele.style.transform;
+                var current2 = current3.replace('rotateY(', '');
+                var current = parseInt(current2);
+                // 计算本次转动的角度
+                var step = (target - current) / 20;
+                // step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                if(step>0){
+                    // 向左转，index++
+                    step =Math.ceil(step);
+                    toWhere='goleft';
+                }else{
+                    step =Math.floor(step);
+                    toWhere='goright';
+                }
+                // 开始动画
+                current += step;
+                ele.style.transform = 'rotateY(' + current + 'deg)';
+                // 当转动的角度到底目标位置，则本次转动停止
+                if (current == target) {
+                    toWhere='stop';
+                    clearInterval(ele.timeID);
+                };
+            }, 20)
+        };
+    </script>
 </body>
 
 </html>
